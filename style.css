@@ -1,0 +1,153 @@
+body {
+    margin: 0;
+    padding: 0;
+
+    font-family: Arial, sans-serif;
+    background: url('./images/phonedirectory.jpg') no-repeat;
+    background-size: cover; /* Ensures the background image covers the entire body */
+    background-position: center; /* Centers the background image within the body */
+   }
+
+.dark-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
+    z-index: 1;
+}
+
+.navbar {
+    background-color: transparent;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 2; /* Ensure the navbar is above the dark overlay */
+    transition: background-color 0.3s ease;
+}
+
+.navbar.sticky {
+    background-color: #000;
+}
+
+.navbar-brand {
+    padding-left: 10px;
+    color: #fff;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+}
+#cube{
+    padding-left: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.login {
+    font-size: 20px;
+    font-weight: bolder;
+    margin-top: 20px;
+    color: #000;
+    background-color: orange;
+    border-radius: 10px;
+    border: 2px solid black;
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: auto auto;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+.login > span{
+    margin-right:-5px ;
+    margin-top: 8px;
+}
+.login:hover {
+    color: #fff;
+    /* background-color: #000000; */
+    border-radius: 10px;
+    transform: scale(1.2);
+    animation: colorgone 1s forwards infinite !important;
+}
+
+@keyframes colorgone {
+    0% {
+        background-image: linear-gradient(to right, #f2008a, #d4279c, #b13aa8, #8b46ad, #634dab, #4959b0, #2c63b2, #006baf, #007eb6, #0090b5, #00a0ae, #1caea4);    }
+    25% {
+        background-image: linear-gradient(to right, #ff14ff, #e410e6, #ca0ccd, #b108b5, #98049d, #88038f, #790282, #6a0174, #60016c, #550165, #4c005d, #420055);    }
+    50% {
+        background-image: linear-gradient(to right, #fb76bc, #e462a2, #cc4e89, #b43a71, #9d255a, #901a4b, #830d3d, #75002f, #6d0026, #65001d, #5d0015, #55000b);    }
+    75% {
+        background-image: linear-gradient(to right, #7682fb, #646ae3, #5253cc, #413cb4, #2e259d, #212594, #12258a, #002480, #00317c, #003872, #003c64, #003f55);    }
+    100% {
+        background-image: linear-gradient(to right, #cdfb76, #bfe261, #b1ca4c, #a2b338, #939c23, #8a8c18, #807c0b, #766d00, #6f6100, #675500, #5e4a00, #553f00);    }
+}
+
+.navbar-links {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    margin-left: 60%;
+}
+
+.navbar-links li {
+    padding: 10px;
+    margin-right: 20px;
+}
+
+.navbar-links li a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.navbar-links li a:hover {
+    color: #ff7f50;
+}
+
+.content {
+    margin: auto;
+    margin-top: 150px;
+    text-align: center;
+    width: 80%;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
+    backdrop-filter: blur(5px); /* Apply blur effect */
+    border-radius: 20px;
+    position: relative; /* Ensure content is stacked above the dark overlay */
+    z-index: 3; /* Ensure the content is above both the navbar and dark overlay */
+}
+
+.content > h1{
+    font-size: 50px;
+    color: #000000;
+}
+
+.content > p{
+    margin: auto auto;
+    font-size: 25px;
+    color: #000000;
+    width: 80%;
+    text-align: justify;
+}
+
+/* Add animation class after the page loads */
+@keyframes slideInFromTop {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.navbar.animated {
+    animation: slideInFromTop 0.5s forwards;
+}
