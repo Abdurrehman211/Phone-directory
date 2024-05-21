@@ -161,7 +161,7 @@ function AddToDatabase() {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, address, email, lastName, phone }),
+        body: JSON.stringify({ name, lastName, address,phone , email }),
     })
     .then(response => response.text())
     .then(data => {

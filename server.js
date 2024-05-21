@@ -34,7 +34,7 @@ db.connect((err) => {
 // Define routes
 app.post('/add-contact', (req, res) => {
     const { name, address, email, lastName, phone } = req.body;
-    const sql = 'INSERT INTO contacts (name, address, email, lastName, phone) VALUES (?, ?, ?, ?, ?)';
+    const sql = 'INSERT INTO contacts (first_name,last_Name, Address ,Phone_no,Email ) VALUES (?, ?, ?, ?, ?)';
     db.query(sql, [name, address, email, lastName, phone], (err, result) => {
         if (err) {
             console.error('Error adding contact:', err);
