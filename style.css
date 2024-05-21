@@ -422,6 +422,26 @@ animation: slideIn 2s forwards ;
     opacity: 0;
     animation-delay: 1s;
 }
+#Phoneno1,
+#Phoneno2,
+#Phoneno3{
+    font-size: 20px;
+    padding: 10px;
+    margin-left: 100px;
+    /* border-radius: 20px; */
+    background:transparent;
+    color: white;
+    border: 2px solid orange;
+    border-top: hidden;
+    /* border-left: hidden; */
+    border-right: hidden;
+    animation: fadeup 3s forwards;
+    opacity: 0;
+    animation-delay: 1s;
+}
+#Phoneno1:hover,
+#Phoneno2:hover,
+#Phoneno3:hover,
 #Name:hover,
 #address:hover,
 #email:hover,
@@ -447,7 +467,9 @@ border-bottom: hidden;
 border-left:hidden ;
 transform: scale(1.1);
 }
-
+#Phoneno1::placeholder,
+#Phoneno2::placeholder,
+#Phoneno3::placeholder,
 #Name::placeholder,
 #address::placeholder,
 #email::placeholder,

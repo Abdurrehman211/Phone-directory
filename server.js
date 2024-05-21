@@ -35,7 +35,7 @@ db.connect((err) => {
 app.post('/add-contact', (req, res) => {
     const { name, address, email, lastName, phone } = req.body;
     const sql = 'INSERT INTO contacts (first_name,last_Name, Address ,Phone_no,Email ) VALUES (?, ?, ?, ?, ?)';
-    db.query(sql, [name, address, email, lastName, phone], (err, result) => {
+    db.query(sql, [name,lastName ,address ,phone , email], (err, result) => {
         if (err) {
             console.error('Error adding contact:', err);
             res.status(500).send('Error adding contact');
@@ -46,9 +46,9 @@ app.post('/add-contact', (req, res) => {
 });
 
 app.post('/update-contact', (req, res) => {
-    const { phoneNumber, name, address, email, lastName } = req.body;
-    const sql = 'UPDATE contacts SET name = ?, address = ?, email = ?, lastName = ? WHERE phone = ?';
-    db.query(sql, [name, address, email, lastName, phoneNumber], (err, result) => {
+    const { phone, name, address, email, lastName } = req.body;
+    const sql = 'UPDATE contacts SET first_name = ?, last_Name = ?, Address = ?, Email = ? WHERE Phone_no = ?';
+    db.query(sql, [name, lastName, address, email, phone], (err, result) => {
         if (err) {
             console.error('Error updating contact:', err);
             res.status(500).send('Error updating contact');
@@ -58,9 +58,10 @@ app.post('/update-contact', (req, res) => {
     });
 });
 
+
 app.post('/delete-contact', (req, res) => {
     const { phoneNumber } = req.body;
-    const sql = 'DELETE FROM contacts WHERE phone = ?';
+    const sql = 'DELETE FROM contacts WHERE Phone_no = ?';
     db.query(sql, [phoneNumber], (err, result) => {
         if (err) {
             console.error('Error deleting contact:', err);
@@ -73,7 +74,7 @@ app.post('/delete-contact', (req, res) => {
 
 app.post('/search-contact', (req, res) => {
     const { phoneNumber } = req.body;
-    const sql = 'SELECT * FROM contacts WHERE phone = ?';
+    const sql = 'SELECT * FROM contacts WHERE Phone_no = ?';
     db.query(sql, [phoneNumber], (err, result) => {
         if (err) {
             console.error('Error searching contact:', err);

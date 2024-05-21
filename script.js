@@ -174,7 +174,7 @@ function AddToDatabase() {
 }
 
 function UpdateDatabase() {
-    const phoneNumber = document.getElementById('Phoneno').value;
+    const phone = document.getElementById('phone1').value;
     const name = document.getElementById('Name1').value;
     const address = document.getElementById('address1').value;
     const email = document.getElementById('email1').value;
@@ -185,7 +185,7 @@ function UpdateDatabase() {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ phoneNumber, name, address, email, lastName }),
+        body: JSON.stringify({  name, lastName, address, email ,phone}),
     })
     .then(response => response.text())
     .then(data => {
@@ -196,6 +196,8 @@ function UpdateDatabase() {
         console.error('Error:', error);
     });
 }
+
+
 
 function DeleteDatabase() {
     const phoneNumber = document.getElementById('Phoneno2').value;
@@ -231,11 +233,11 @@ function SearchDatabase() {
     .then(data => {
         if (data.length > 0) {
             const contact = data[0];
-            document.getElementById('Name3').value = contact.name;
-            document.getElementById('address3').value = contact.address;
-            document.getElementById('email3').value = contact.email;
-            document.getElementById('lastName3').value = contact.lastName;
-            document.getElementById('phone3').value = contact.phone;
+            document.getElementById('Name3').value = contact.first_name;
+            document.getElementById('address3').value = contact.Address;
+            document.getElementById('email3').value = contact.Email;
+            document.getElementById('lastName3').value = contact.last_name;
+            document.getElementById('phone3').value = contact.Phone_no;
         } else {
             Swal.fire('Not Found', 'No contact found with this phone number', 'info');
         }
