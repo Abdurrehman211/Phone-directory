@@ -149,24 +149,6 @@ function SearchContact(){
 
 
 // Route to update contact
-app.post('/update-contact', (req, res) => {
-    const { phoneNumber, name, address, email, lastName } = req.body;
-    const sql = 'UPDATE contacts SET name = ?, address = ?, email = ?, lastName = ? WHERE phoneNumber = ?';
-    db.query(sql, [name, address, email, lastName, phoneNumber], (err, result) => {
-        if (err) {
-            console.error('Error updating contact:', err);
-            res.status(500).send('Error updating contact');
-            return;
-        }
-        res.send('Contact updated successfully');
-    });
-});
-
-app.listen(3306, () => {
-    console.log('Server is running on port 3306');
-});
-
-// Function to add a contact to the database
 function AddToDatabase() {
     const name = document.getElementById('Name').value;
     const address = document.getElementById('address').value;
@@ -191,7 +173,6 @@ function AddToDatabase() {
     });
 }
 
-// Function to update a contact in the database
 function UpdateDatabase() {
     const phoneNumber = document.getElementById('Phoneno').value;
     const name = document.getElementById('Name1').value;
@@ -216,7 +197,6 @@ function UpdateDatabase() {
     });
 }
 
-// Function to delete a contact from the database
 function DeleteDatabase() {
     const phoneNumber = document.getElementById('Phoneno2').value;
 
@@ -237,7 +217,6 @@ function DeleteDatabase() {
     });
 }
 
-// Function to search for a contact in the database
 function SearchDatabase() {
     const phoneNumber = document.getElementById('Phoneno3').value;
 
@@ -266,6 +245,7 @@ function SearchDatabase() {
         console.error('Error:', error);
     });
 }
+
 // const corsOptions = {
 //     origin: 'http://127.0.0.1:5500', // Replace with your allowed origin
 //     optionsSuccessStatus: 200
