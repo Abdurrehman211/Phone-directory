@@ -88,3 +88,187 @@ function Addtodatabase(){
         timer: 1500
       });
 }
+var update = document.getElementById('UpdateContact');
+function UpdateContact() {
+  
+    if (update.style.display === 'none') {
+        update.style.display = 'block';
+        element.style.display = "none";
+    } else {
+        update.style.display = 'none';
+    }
+}
+
+
+
+function loginpage(){
+    element1.style.display = "none";
+    loginform.style.display= "none";
+    add.style.display= 'none';
+    element.style.display = "block";
+    update.style.display='none';
+    del.style.display='none';
+    search.style.display='none';
+}
+var del=document.getElementById('delContact');
+function deleteContact(){
+    if(del.style.display==='none')
+        {
+            del.style.display='block';
+            element.style.display = "none";
+        }
+        else{
+            del.style.display='none';
+            element.style.display='block';
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went wrong!",
+                footer: '<a href="#">Why do I have this issue?</a>'
+              });
+        }
+}
+
+var search = document.getElementById('SearchContact');
+function SearchContact(){
+    if (search.style.display==='none'){
+        search.style.display='block';
+        element.style.display='none';
+    }
+    else{
+        search.style.display='none';
+        element.style.display='block';
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong!",
+            footer: '<a href="#">Why do I have this issue?</a>'
+          });
+    }
+}
+
+
+// Route to update contact
+app.post('/update-contact', (req, res) => {
+    const { phoneNumber, name, address, email, lastName } = req.body;
+    const sql = 'UPDATE contacts SET name = ?, address = ?, email = ?, lastName = ? WHERE phoneNumber = ?';
+    db.query(sql, [name, address, email, lastName, phoneNumber], (err, result) => {
+        if (err) {
+            console.error('Error updating contact:', err);
+            res.status(500).send('Error updating contact');
+            return;
+        }
+        res.send('Contact updated successfully');
+    });
+});
+
+app.listen(3306, () => {
+    console.log('Server is running on port 3306');
+});
+
+// Function to add a contact to the database
+function AddToDatabase() {
+    const name = document.getElementById('Name').value;
+    const address = document.getElementById('address').value;
+    const email = document.getElementById('email').value;
+    const lastName = document.getElementById('lastName').value;
+    const phone = document.getElementById('phone').value;
+
+    fetch('http://localhost:3000/add-contact', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, address, email, lastName, phone }),
+    })
+    .then(response => response.text())
+    .then(data => {
+        Swal.fire('Success', data, 'success');
+    })
+    .catch((error) => {
+        Swal.fire('Error', 'Failed to add contact', 'error');
+        console.error('Error:', error);
+    });
+}
+
+// Function to update a contact in the database
+function UpdateDatabase() {
+    const phoneNumber = document.getElementById('Phoneno').value;
+    const name = document.getElementById('Name1').value;
+    const address = document.getElementById('address1').value;
+    const email = document.getElementById('email1').value;
+    const lastName = document.getElementById('lastName1').value;
+
+    fetch('http://localhost:3000/update-contact', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ phoneNumber, name, address, email, lastName }),
+    })
+    .then(response => response.text())
+    .then(data => {
+        Swal.fire('Success', data, 'success');
+    })
+    .catch((error) => {
+        Swal.fire('Error', 'Failed to update contact', 'error');
+        console.error('Error:', error);
+    });
+}
+
+// Function to delete a contact from the database
+function DeleteDatabase() {
+    const phoneNumber = document.getElementById('Phoneno2').value;
+
+    fetch('http://localhost:3000/delete-contact', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ phoneNumber }),
+    })
+    .then(response => response.text())
+    .then(data => {
+        Swal.fire('Success', data, 'success');
+    })
+    .catch((error) => {
+        Swal.fire('Error', 'Failed to delete contact', 'error');
+        console.error('Error:', error);
+    });
+}
+
+// Function to search for a contact in the database
+function SearchDatabase() {
+    const phoneNumber = document.getElementById('Phoneno3').value;
+
+    fetch('http://localhost:3000/search-contact', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ phoneNumber }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.length > 0) {
+            const contact = data[0];
+            document.getElementById('Name3').value = contact.name;
+            document.getElementById('address3').value = contact.address;
+            document.getElementById('email3').value = contact.email;
+            document.getElementById('lastName3').value = contact.lastName;
+            document.getElementById('phone3').value = contact.phone;
+        } else {
+            Swal.fire('Not Found', 'No contact found with this phone number', 'info');
+        }
+    })
+    .catch((error) => {
+        Swal.fire('Error', 'Failed to search contact', 'error');
+        console.error('Error:', error);
+    });
+}
+// const corsOptions = {
+//     origin: 'http://127.0.0.1:5500', // Replace with your allowed origin
+//     optionsSuccessStatus: 200
+// };
+
+// app.use(cors(corsOptions));
