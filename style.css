@@ -424,6 +424,8 @@ animation: slideIn 2s forwards ;
     opacity: 0;
     animation-delay: 1s;
 }
+#registerUsername,
+#registerPassword,
 #Phoneno1,
 #Phoneno2,
 #Phoneno3{
@@ -441,6 +443,8 @@ animation: slideIn 2s forwards ;
     opacity: 0;
     animation-delay: 1s;
 }
+#registerUsername:hover,
+#registerPassword:hover,
 #Phoneno1:hover,
 #Phoneno2:hover,
 #Phoneno3:hover,
@@ -469,6 +473,8 @@ border-bottom: hidden;
 border-left:hidden ;
 transform: scale(1.1);
 }
+#registerUsername::placeholder,
+#registerPassword::placeholder,
 #Phoneno1::placeholder,
 #Phoneno2::placeholder,
 #Phoneno3::placeholder,
@@ -697,10 +703,10 @@ opacity: 0;
     z-index: 1000;
 }
 .reg-content{
-    background: url('./images/darkbackground.jpg');
+    background: url('./images/peakyblinders.png');
     background-size: cover;
      background-repeat: no-repeat;
-     background-position:  center;
+     background-position: top;
      border: 1px solid #888;
      width: 80%;
      height: 80%;
