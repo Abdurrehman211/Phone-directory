@@ -2,7 +2,7 @@ const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
+// const bcrypt = require('bcrypt');
 const app = express();
 
 const corsOptions = {
@@ -31,11 +31,11 @@ db.connect((err) => {
     console.log('Connected to MySQL on port 3306');
 });
 
-// Define routes
+// Define routes for contacts
 app.post('/add-contact', (req, res) => {
     const { name, address, email, lastName, phone } = req.body;
-    const sql = 'INSERT INTO contacts (first_name,last_Name, Address ,Phone_no,Email ) VALUES (?, ?, ?, ?, ?)';
-    db.query(sql, [name,lastName ,address ,phone , email], (err, result) => {
+    const sql = 'INSERT INTO contacts (first_name, last_Name, Address, Phone_no, Email) VALUES (?, ?, ?, ?, ?)';
+    db.query(sql, [name, lastName, address, phone, email], (err, result) => {
         if (err) {
             console.error('Error adding contact:', err);
             res.status(500).send('Error adding contact');
@@ -57,7 +57,6 @@ app.post('/update-contact', (req, res) => {
         res.send('Contact updated successfully');
     });
 });
-
 
 app.post('/delete-contact', (req, res) => {
     const { phoneNumber } = req.body;
@@ -82,6 +81,54 @@ app.post('/search-contact', (req, res) => {
             return;
         }
         res.json(result);
+    });
+});
+
+// Define routes for user registration and login
+app.post('/register', async (req, res) => {
+    const { username, password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const sql = 'INSERT INTO registeruser (username, password) VALUES (?, ?)';
+    db.query(sql, [username, hashedPassword], (err, result) => {
+        if (err) {
+            if (err.code === 'ER_DUP_ENTRY') {
+                res.status(409).send('Username already exists');
+            } else {
+                console.error('Error registering user:', err);
+                res.status(500).send('Error registering user');
+            }
+            return;
+        }
+        res.send('User registered successfully');
+    });
+});
+
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+
+    const sql = 'SELECT * FROM registeruser WHERE username = ?';
+    db.query(sql, [username], async (err, results) => {
+        if (err) {
+            console.error('Error logging in:', err);
+            res.status(500).send('Error logging in');
+            return;
+        }
+
+        if (results.length === 0) {
+            res.status(401).send('Invalid username or password');
+            return;
+        }
+
+        const user = results[0];
+        const isValidPassword = await bcrypt.compare(password, user.password);
+
+        if (!isValidPassword) {
+            res.status(401).send('Invalid username or password');
+            return;
+        }
+
+        res.send('User logged in successfully');
     });
 });
 

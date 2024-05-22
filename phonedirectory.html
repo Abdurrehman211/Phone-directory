@@ -12,7 +12,7 @@
     <a href="#" class="navbar-brand"><label id="namebrand" class="navbar-brand">My Website</label></a>
     <ul class="navbar-links">
         <li><a href="#" onclick="window.location.reload()">Home</a></li>
-        <li><a href="#" onclick="navigateToSection('admin')">Admin</a></li>
+        <li><a href="#" onclick="registerdata()">register</a></li>
         <li><a href="#" onclick="loginpage()">Login</a></li>
         <li><a href="#" onclick="navigateToSection('contact')">Contact</a></li>
     </ul>
@@ -26,8 +26,22 @@
         <button class="login" id="loginButton"><span>LOG IN</span><img src="./images/cube.gif" id="cube"></button>
     </div>
 </section>
-
-<button id="loginButton" style="display: none;">Login</button>
+<div id="registerModal" class="reg-modal">
+    <div class="reg-content" id="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="h2">Register</h2>
+        <form id="registerForm">
+            <label for="registerUsername" style="font-size: 25px; color:white;">Username:</label>
+            <input type="text" id="registerUsername" name="username" placeholder="NAME">
+            <br><br>
+            <label for="registerPassword" style="font-size: 25px; color:white;">Password:</label>
+            <input type="password" id="registerPassword" name="password" placeholder="Password">
+            <br><br>
+            <button type="button" id="button" onclick="register()"><img src="./images/sent.gif" alt="sent" id="sentlogo"></button>
+        </form>
+    </div>
+</div>
+<button id="loginButton" style="display:none">Login</button>
 <div id="loginModal" class="modal">
     <div class="modal-content" id="modal-content">
         <span class="close">&times;</span>
@@ -39,10 +53,13 @@
             <label for="password" style="font-size: 25px; color:white;">Password:</label>
             <input type="password" id="password" name="password" placeholder="Password">
             <br><br>
-            <button type="button" id="button" method="post" onclick="Login()"><img src="./images/sent.gif" alt="sent" id="sentlogo"></button>
+            <button type="button" id="button" onclick="login()"><img src="./images/sent.gif" alt="sent" id="sentlogo"></button>
         </form>
     </div>
 </div>
+
+<!-- Registration Form -->
+
 
 <div class="block1" id="block1">
     <div class="main" id="main">

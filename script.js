@@ -270,3 +270,118 @@ function SearchDatabase() {
 // };
 
 // app.use(cors(corsOptions));
+// loginBtn.onclick = function() {
+//     modal.style.display = "block";
+// }
+
+registerBtn.onclick = function() {
+    registerModal.style.display = "block";
+}
+
+// span.onclick = function() {
+//     modal.style.display = "none";
+//     registerModal.style.display = "none";
+//     content.style.display = "block";
+// }
+
+window.onclick = function(event) {
+    if (event.target == modal || event.target == registerModal) {
+        modal.style.display = "none";
+        registerModal.style.display = "none";
+        content.style.display = "block";
+    }
+}
+
+function login() {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+    })
+    .then(response => response.text())
+    .then(data => {
+        if (data === 'User logged in successfully') {
+            Swal.fire({
+                icon: "success",
+                title: "Signed in successfully",
+                showConfirmButton: false,
+                timer: 2000
+            });
+            document.getElementById('namebrand').innerHTML = username;
+            element1.style.display = "none";
+            loginform.style.display = "none";
+            add.style.display = 'none';
+            element.style.display = "block";
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Incorrect Username or Password!",
+                text: "Please enter the correct username and password."
+            });
+            element1.style.display = "block";
+            element.style.display = 'none';
+        }
+    })
+    .catch(error => {
+        Swal.fire('Error', 'Failed to login', 'error');
+        console.error('Error:', error);
+    });
+}
+
+function register() {
+    const username = document.getElementById('registerUsername').value;
+    const password = document.getElementById('registerPassword').value;
+
+    fetch('http://localhost:3000/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+    })
+    .then(response => response.text())
+    .then(data => {
+        if (data === 'User registered successfully') {
+            Swal.fire({
+                icon: "success",
+                title: "Registered successfully",
+                showConfirmButton: false,
+                timer: 2000
+            });
+            registerModal.style.display = "none";
+        } else {
+            Swal.fire('Error', data, 'error');
+        }
+    })
+    .catch(error => {
+        Swal.fire('Error', 'Failed to register', 'error');
+        console.error('Error:', error);
+    });
+}
+function registerdata(){
+    var reg = document.getElementById('registerModal');
+    if (reg.style.display==='none'){
+reg.style.display='block';
+element1.style.display = "none";
+loginform.style.display= "none";
+add.style.display= 'none';
+element.style.display = "none";
+update.style.display='none';
+del.style.display='none';
+search.style.display='none';
+    }
+    else{
+element1.style.display = "none";
+loginform.style.display= "none";
+add.style.display= 'none';
+element.style.display = "none";
+update.style.display='none';
+del.style.display='none';
+search.style.display='none';
+    }
+}
