@@ -2,6 +2,10 @@ var pass = 'admin@123';
 var pass_user = 'user@123';
 // Get the login modal
 var modal = document.getElementById('loginModal');
+var add= document.getElementById('AddContact');
+var update= document.getElementById('UpdateContact');
+var del=document.getElementById('delContact');
+var search = document.getElementById('SearchContact');
 // Get the content div
 var content = document.getElementById('content');
 var element1 = document.getElementById('content1');
@@ -11,7 +15,7 @@ var loginform=document.getElementById('modal-content');
 var loginBtn = document.getElementById("loginButton");
 
 // Get the <span> element that closes the login modal
-var span = document.getElementsByClassName("close")[0];
+// var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks the button, open the modal and hide the content
 loginBtn.onclick = function() {
@@ -43,13 +47,12 @@ function Login() {
             showConfirmButton: false,
             timer: 2000
         });
-        // console.log(name1);
-        // alert('name',name1);
-        document.getElementById('namebrand').innerHTML=name1;
+
+        document.getElementById('namebrand').innerHTML = name1;
+        modal.style.display = 'none'; // Hide the login modal
         element1.style.display = "none";
-        loginform.style.display= "none";
-        add.style.display= 'none';
-        element.style.display = "block"; // Display the element
+        loginform.style.display = "none";
+        element.style.display = "block"; 
     } else {
         Swal.fire({
             icon: "error",
@@ -57,28 +60,29 @@ function Login() {
             text: "Please enter the correct password."
         });
         element1.style.display = "block";
-
         element.style.display = 'none'; // Hide the element
     }
 }
+
 function navigateToSection(sectionId) {
     document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
 }
 function Home(){
     location.reload();
 }
-function addContacts(){
-    var add=document.getElementById('AddContact');
-    if (add.style.display==='none')
-       { add.style.display= 'block';
-    
-        element.style.display = "none"; 
+function addContacts() {
+    var add = document.getElementById('AddContact');
+    var element = document.getElementById('block1');
+
+    if (add.style.display === 'none' || add.style.display === '') {
+        add.style.display = 'block';
+        element.style.display = 'none';
+    } else {
+        alert('An error occurred');
+        element.style.display = 'block';
+    }
 }
-else{
-    alert('An error occured');
-    element.style.display='block';
-}
-}
+
 function Addtodatabase(){
     Swal.fire({
         position: "top-end",
@@ -88,9 +92,9 @@ function Addtodatabase(){
         timer: 1500
       });
 }
-var update = document.getElementById('UpdateContact');
+
 function UpdateContact() {
-  
+    var update = document.getElementById('UpdateContact');
     if (update.style.display === 'none') {
         update.style.display = 'block';
         element.style.display = "none";
@@ -104,15 +108,16 @@ function UpdateContact() {
 function loginpage(){
     element1.style.display = "none";
     loginform.style.display= "none";
-    add.style.display= 'none';
     element.style.display = "block";
+    add.style.display='none';
     update.style.display='none';
     del.style.display='none';
     search.style.display='none';
 }
-var del=document.getElementById('delContact');
+
 function deleteContact(){
-    if(del.style.display==='none')
+    var del = document.getElementById('delContact');
+    if(del.style.display === 'none')
         {
             del.style.display='block';
             element.style.display = "none";
@@ -129,8 +134,9 @@ function deleteContact(){
         }
 }
 
-var search = document.getElementById('SearchContact');
+
 function SearchContact(){
+    var search = document.getElementById('SearchContact');
     if (search.style.display==='none'){
         search.style.display='block';
         element.style.display='none';
@@ -292,46 +298,46 @@ window.onclick = function(event) {
     }
 }
 
-function login() {
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
+// function login() {
+//     const username = document.getElementById('username').value;
+//     const password = document.getElementById('password').value;
 
-    fetch('http://localhost:3000/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-    })
-    .then(response => response.text())
-    .then(data => {
-        if (data === 'User logged in successfully') {
-            Swal.fire({
-                icon: "success",
-                title: "Signed in successfully",
-                showConfirmButton: false,
-                timer: 2000
-            });
-            document.getElementById('namebrand').innerHTML = username;
-            element1.style.display = "none";
-            loginform.style.display = "none";
-            add.style.display = 'none';
-            element.style.display = "block";
-        } else {
-            Swal.fire({
-                icon: "error",
-                title: "Incorrect Username or Password!",
-                text: "Please enter the correct username and password."
-            });
-            element1.style.display = "block";
-            element.style.display = 'none';
-        }
-    })
-    .catch(error => {
-        Swal.fire('Error', 'Failed to login', 'error');
-        console.error('Error:', error);
-    });
-}
+//     // fetch('http://localhost:3000/login', {
+//     //     method: 'POST',
+//     //     headers: {
+//     //         'Content-Type': 'application/json',
+//     //     },
+//     //     body: JSON.stringify({ username, password }),
+//     // })
+//     // .then(response => response.text())
+//     // .then(data => {
+//     //     if (data === 'User logged in successfully') {
+//     //         Swal.fire({
+//     //             icon: "success",
+//     //             title: "Signed in successfully",
+//     //             showConfirmButton: false,
+//     //             timer: 2000
+//     //         });
+//             document.getElementById('namebrand').innerHTML = username;
+//             element1.style.display = "none";
+//             loginform.style.display = "none";
+//             add.style.display = 'none';
+//             element.style.display = "block";
+//     //     } else {
+//     //         Swal.fire({
+//     //             icon: "error",
+//     //             title: "Incorrect Username or Password!",
+//     //             text: "Please enter the correct username and password."
+//     //         });
+//     //         element1.style.display = "block";
+//     //         element.style.display = 'none';
+//     //     }
+//     // })
+//     // .catch(error => {
+//     //     Swal.fire('Error', 'Failed to login', 'error');
+//     //     console.error('Error:', error);
+//     // });
+// }
 
 function register() {
     const username = document.getElementById('registerUsername').value;
@@ -368,20 +374,11 @@ function registerdata(){
     if (reg.style.display==='none'){
 reg.style.display='block';
 element1.style.display = "none";
-loginform.style.display= "none";
-add.style.display= 'none';
-element.style.display = "none";
-update.style.display='none';
-del.style.display='none';
-search.style.display='none';
+
     }
     else{
-element1.style.display = "none";
-loginform.style.display= "none";
-add.style.display= 'none';
-element.style.display = "none";
-update.style.display='none';
-del.style.display='none';
-search.style.display='none';
+element1.style.display = "block";
+reg.style.display='none';
+
     }
 }

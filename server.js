@@ -85,12 +85,11 @@ app.post('/search-contact', (req, res) => {
 });
 
 // Define routes for user registration and login
-app.post('/register', async (req, res) => {
+app.post('/register',  (req, res) => {
     const { username, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
 
     const sql = 'INSERT INTO registeruser (username, password) VALUES (?, ?)';
-    db.query(sql, [username, hashedPassword], (err, result) => {
+    db.query(sql, [username, password], (err, result) => {
         if (err) {
             if (err.code === 'ER_DUP_ENTRY') {
                 res.status(409).send('Username already exists');
@@ -104,33 +103,24 @@ app.post('/register', async (req, res) => {
     });
 });
 
-app.post('/login', (req, res) => {
-    const { username, password } = req.body;
+// app.post('/login', (req, res) => {
+//     const { username, password } = req.body;
 
-    const sql = 'SELECT * FROM registeruser WHERE username = ?';
-    db.query(sql, [username], async (err, results) => {
-        if (err) {
-            console.error('Error logging in:', err);
-            res.status(500).send('Error logging in');
-            return;
-        }
+//     const sql = 'SELECT * FROM registeruser WHERE username = ?';
+//     db.query(sql, [username],  (err, results) => {
+//         if (err) {
+//             console.error('Error logging in:', err);
+//             res.status(500).send('Error logging in');
+//             return;
+//         }
 
-        if (results.length === 0) {
-            res.status(401).send('Invalid username or password');
-            return;
-        }
-
-        const user = results[0];
-        const isValidPassword = await bcrypt.compare(password, user.password);
-
-        if (!isValidPassword) {
-            res.status(401).send('Invalid username or password');
-            return;
-        }
-
-        res.send('User logged in successfully');
-    });
-});
+//         if (results.length === 0) {
+//             res.status(401).send('Invalid username or password');
+//             return;
+//         }
+//         res.send('User logged in successfully');
+//     });
+// });
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
